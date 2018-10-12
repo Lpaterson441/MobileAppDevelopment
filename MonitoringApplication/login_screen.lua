@@ -76,13 +76,15 @@ email = display.newText("Email", 160, 260, "Arial",14)
 emailField = native.newTextField(160,290, 200,30)
 emailField.align = "left"
 
+-- Event listener code, gets user input
+nameField:addEventListener("userInput", textListener)
+phoneField:addEventListener("userInput",numListener)
+emailField:addEventListener("userInput", textListener)
 
-nameField:addEventListener("name", textListener)
-phoneField:addEventListener("phoneInput",numListener)
-emailField:addEventListener("email", textListener)
-
-print(nameField.text) -- For testing if input is being stored
-print(phoneField.text)
+--Variables that store user input for saving and later use
+namePut = nameField.text
+phonePut = phoneField.text
+emailPut = emailField.text
 
 
 return scene
