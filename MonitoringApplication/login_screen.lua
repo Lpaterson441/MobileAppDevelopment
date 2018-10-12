@@ -37,26 +37,6 @@ function textListener( event ) -- Code to create text listener
 	end
 end 
 
-function numListener( event )
-	
-	if (event.phase == "began") then
-	-- allows user to edit fields
-		
-
-	elseif (event.phase == "ended" or event.phase == "submitted") then
-		print (event.target.text)
-	
-	elseif (event.phase == "editing") then
-		print( event.newCharacters)
-		print( event.oldText)
-		print(event.startPosition)
-		--print(event.text)
-		print("TESTING") -- Tests if editing phase is running correctly
-	
-	
-	end
-end 
-
 
 
 --userName code
@@ -78,7 +58,7 @@ emailField.align = "left"
 
 -- Event listener code, gets user input
 nameField:addEventListener("userInput", textListener)
-phoneField:addEventListener("userInput",numListener)
+phoneField:addEventListener("userInput",textListener)
 emailField:addEventListener("userInput", textListener)
 
 --Variables that store user input for saving and later use
