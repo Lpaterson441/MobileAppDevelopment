@@ -1,7 +1,10 @@
+-- login_screen
+
 local composer = require("composer")
 local scene = composer.newScene()
 local widget = require("widget")
-local sumbitButton, nameField, phoneField, emailField, words
+local submitButton, nameField, phoneField, emailField, words
+
 
 
 
@@ -56,10 +59,13 @@ function scene:create(event)
 	submitButton.y = display.contentCenterY*1.5
 	sceneGroup:insert(submitButton)
 	
+	
+	
 	--listeners for input
 	nameField:addEventListener("userInput", textListener)
 	phoneField:addEventListener("userInput",textListener)
 	emailField:addEventListener("userInput", textListener)
+	
 	
 end
 
@@ -90,32 +96,40 @@ function textListener( event ) -- Code to create text listener
 
 	elseif (event.phase == "ended" or event.phase == "submitted") then
 		print (event.target.text)
+		local details = {}
+		
+		-- variable that hold user input in order to save to file
+		var = event.target.text
+		table.insert(details,var)
+		
+		-- loops for length of table and adds table contents to file
+		for v in pairs(details) do
+			local path = system.pathForFile("SubmissionFile.txt",system.DocumentsDirectory)
+			file = io.open(path,"a")
+			file:write(details[v]..",")
+			io.close(file)
+			file = nil
+		end	
+		
 	
 	elseif (event.phase == "editing") then
 		print( event.newCharacters)
 		print( event.oldText)
-		print( event.startPosition)
+		--print( event.startPosition)
 		print( event.text)
-		print("TESTING") -- Tests if editing phase is running correctly
-	
-	
+		
 	end
+	
 end 
 
 function handlesubButtonEvent(event)
 
 	if (event.phase == "ended") then
-		composer.gotoScene("menu_screen",fade,1000)
+			composer.gotoScene ("menu_screen", "slideLeft", 1000 )
 		return true
 	end
+	scene:destroy()
 end
-
-
-	
-
-
-
-
 
 
 
@@ -124,8 +138,6 @@ scene:addEventListener("create", scene)
 scene:addEventListener("show",scene)
 scene:addEventListener("hide",scene)
 scene:addEventListener("destroy",scene)
-
-
 
 
 
