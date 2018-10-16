@@ -7,6 +7,8 @@ local composer = require( "composer" )
 local widget = require( "widget" )
 local scene = composer.newScene()
 local compButton, legalButton, securityButton	
+
+composer.removeScene("login_screen")
 	
 -- local function onSceneTouch( self, event )
 -- if event.phase == "began" then
