@@ -7,8 +7,22 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 composer.gotoScene( "menu_screen", "fade", 1000 )
 
+
+-- Code that checks if login details have already been entered by searching for submission text file
+local path = system.pathForFile("SubmissionFile.txt",system.DocumentsDirectory)
+
+local file, errorString = io.open(path,"r")
+
+if not file then
+	composer.gotoScene("login_screen","fade",1000)
 	
-	function scene:create( event )
+else
+	composer.gotoScene("menu_screen","fade",1000)
+	io.close(file)
+end
+
+
+function scene:create( event )
 	
 	
 end
