@@ -105,7 +105,7 @@ end
 function handlesubButtonEvent(event)
 
 	if (event.phase == "ended") then
-		composer.gotoScene("loading_screen",fade,1000)
+		composer.gotoScene("menu_screen",fade,1000)
 		return true
 	end
 end
