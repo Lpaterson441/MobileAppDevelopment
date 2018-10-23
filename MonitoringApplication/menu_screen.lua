@@ -10,19 +10,36 @@ local compButton, legalButton, securityButton
 
 composer.removeScene("login_screen")
 	
--- local function onSceneTouch( self, event )
--- if event.phase == "began" then
+local function onSceneTouch( self, event )
+	if event.phase == "began" then
 		
-		-- composer.gotoScene( "complaints_page", "slideLeft", 800  )
+		composer.gotoScene( "complaints_page", "slideLeft", 800  )
 		
-		-- return true
-	-- end
--- end
+		return true
+	 end
+ end
+ local function onSceneTouch1( self, event )
+	if event.phase == "began" then
+		
+		composer.gotoScene( "Legal_Rights_page", "slideLeft", 800  )
+		
+		return true
+	 end
+ end
+ local function onSceneTouch2( self, event )
+	if event.phase == "began" then
+		
+		composer.gotoScene( "Security_Monitoring_page", "slideLeft", 800  )
+		
+		return true
+	 end
+ end
 	
 	
 	function scene:create( event )
 	local sceneGroup = self.view
 
+	
 	compButton = widget.newButton(
 {
 		defaultFile = "complaints.png",
@@ -34,7 +51,7 @@ composer.removeScene("login_screen")
 {
 		defaultFile = "legalrights.png",
 		overFile = "blacktouch.jpg",
-        onEvent = handleLegalButtonEvent
+        
 })
 
 	securityButton = widget.newButton(
@@ -60,7 +77,9 @@ composer.removeScene("login_screen")
 	securityButton:scale(0.16,0.16)
 	sceneGroup:insert( securityButton )
 	
-	
+	compButton.touch = onSceneTouch
+	legalButton.touch = onSceneTouch1
+	securityButton.touch = onSceneTouch2
 	
 end
 
@@ -70,13 +89,9 @@ function scene:show( event )
 	
 	if "did" == phase then
 	
-	CompTimer = timer.performWithDelay( 1000, compImage, 1 )
-	LegalTimer = timer.performWithDelay( 5000, legalImage, 1 )
-	timer.performWithDelay( 10000, securityImage, 1 )
-	
-	CompTimer:addEventListener( "touch", CompTimer )
-	LegalTimer:addEventListener( "touch", CompTimer )
-	securityImage:addEventListener( "touch", CompTimer )
+compButton:addEventListener( "touch", compButton )
+legalButton:addEventListener( "touch", legalButton )
+securityButton:addEventListener( "touch", securityButton )
 	end
 	
 end
@@ -86,8 +101,9 @@ function scene:hide( event )
 	local phase = event.phase
 	
 	if "will" == phase then
-	
-		
+	compButton:removeEventListener( "touch", compButton )
+	legalButton:removeEventListener( "touch", legalButton )
+	securityButton:removeEventListener( "touch", securityButton )
 	
 	end
 	
