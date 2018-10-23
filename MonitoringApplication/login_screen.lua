@@ -5,10 +5,13 @@ local scene = composer.newScene()
 local widget = require("widget")
 local submitButton, nameField, phoneField, emailField, words
 
-
-
-
-
+local function onSceneTouch(self,event)
+	if event.phase == "began" then
+		composer.gotoScene("menu_screen", "slideLeft",800)
+		
+		return true
+	end
+end
 
 function scene:create(event)
 	sceneGroup = self.view
@@ -31,9 +34,8 @@ function scene:create(event)
 	{
 		left = 100,
 		top = 200,
-		id = "subButton",
+		id = "submitButton",
 		label = "Submit",
-		onEvent = handlesubButtonEvent
 		}
 	)
 
@@ -65,6 +67,7 @@ function scene:create(event)
 	nameField:addEventListener("userInput", textListener)
 	phoneField:addEventListener("userInput",textListener)
 	emailField:addEventListener("userInput", textListener)
+	submitButton.touch = onSceneTouch
 	
 	
 end
@@ -73,6 +76,8 @@ function scene:show(event)
 
 	local phase = event.phase
 	if "did" == phase then
+	
+		submitButton:addEventListener("touch", submitButton)
 	end
 end
 
@@ -80,6 +85,7 @@ function scene:hide(event)
 	local phase = event.phase
 	
 	if "will" == phase then
+		submitButton:removeEventListener("touch", submitButton)
 	
 	end
 end
@@ -111,25 +117,18 @@ function textListener( event ) -- Code to create text listener
 			file = nil
 		end	
 		
+		
 	
 	elseif (event.phase == "editing") then
 		print( event.newCharacters)
 		print( event.oldText)
-		--print( event.startPosition)
+		print( event.startPosition)
 		print( event.text)
 		
 	end
 	
 end 
 
-function handlesubButtonEvent(event)
-
-	if (event.phase == "ended") then
-			composer.gotoScene ("menu_screen", "slideLeft", 1000 )
-		return true
-	end
-	scene:destroy()
-end
 
 
 
