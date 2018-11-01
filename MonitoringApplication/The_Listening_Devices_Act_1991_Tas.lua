@@ -7,24 +7,36 @@
 local composer = require "composer"
 local scene = composer.newScene()
 local widget = require "widget"
--- load scene
-local text
-function scene:create( event )
-local function scrollListener( event )
-	local phase = event.phase
-	local direction = event.direction
 
-	if event.limitReached then
-		if "up" == direction then
-			print("reached top limit")
-		elseif "down" == direction then
-			print("reached bottom limit")
-		end
+local backButton
+
+local function onSceneTouch(self,event) -- Function for back button to return to homescreen
+	if event.phase == "ended" then
+		composer.gotoScene("Legal_Rights_page","slideLeft",800)
+		
+		return true
 	end
-	return true
 end
 
 
+local text
+function scene:create( event )
+	local sceneGroup = self.view
+		backButton = widget.newButton(
+	{
+		top = display.contentHeight,
+		id = "backButton",
+		label = "back"
+		}
+	)
+	
+	backButton.x = display.contentCenterX 
+	backButton.y = -10
+	sceneGroup:insert(backButton)
+	
+	backButton.touch = onSceneTouch
+	
+	
 local scrollView = widget.newScrollView
 {
 	left = 0,
@@ -43,14 +55,30 @@ local textObject = display.newText(text, 0, 330, 300, 0, "Helvetica", 14)
 textObject:setTextColor(0)
 textObject.x = display.contentCenterX
 scrollView:insert( textObject )
+sceneGroup:insert(scrollView)
 end
+	
+	
+local function scrollListener( event )
+	local phase = event.phase
+	local direction = event.direction
+
+	if event.limitReached then
+		if "up" == direction then
+			print("reached top limit")
+		elseif "down" == direction then
+			print("reached bottom limit")
+		end
+	end
+	return true
+end
+
 
 function scene:show( event )
 	
 	local phase = event.phase
 	
 	if "did" == phase then
-	--composer.removeScene( "Legal_Rights_page" )
 	
 	end
 	
