@@ -7,8 +7,14 @@ local composer = require "composer"
 local scene = composer.newScene()
 local widget = require "widget"
 
-local button1, button2, button3, button4, button5, button6, button7, button8, button9, button10
+local button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, backButton
 
+local function onSceneTouch(Self,event)
+	if event.phase == "ended" then
+		composer.gotoScene("menu_screen", "slideLeft",800)
+		return true
+	end
+end
 
 local function handleButtonEvent1( self, event )
  
@@ -106,6 +112,17 @@ function scene:create( event )
  
 
 -- Create the widget
+
+ backButton = widget.newButton(
+	{
+		top = display.contentHeight,
+		id = "backButton",
+		label = "back"
+		}
+	)
+	
+	
+	
  button1 = widget.newButton(
     {
        left = 5,
@@ -253,6 +270,11 @@ function scene:create( event )
     }
 )
 
+backButton.x = display.contentCenterX
+backButton.y = -10
+
+
+
  button9.x = display.contentCenterX + 2
  button6.x = display.contentCenterX + 2
  button3.x = display.contentCenterX + 2
@@ -276,6 +298,7 @@ function scene:create( event )
 	sceneGroup:insert( button8 )
 	sceneGroup:insert( button9 )
 	sceneGroup:insert( button10 )
+	sceneGroup:insert(backButton)
 button1.touch = handleButtonEvent1
 button2.touch = handleButtonEvent2
 button3.touch = handleButtonEvent3
@@ -286,6 +309,7 @@ button7.touch = handleButtonEvent7
 button8.touch = handleButtonEvent8
 button9.touch = handleButtonEvent9
 button10.touch = handleButtonEvent10
+backButton.touch = onSceneTouch
 end
 
 
