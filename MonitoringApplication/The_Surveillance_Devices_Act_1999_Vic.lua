@@ -12,7 +12,7 @@ local backButton
 
 local function onSceneTouch(self,event) -- Function for back button to return to homescreen
 	if event.phase == "ended" then
-		composer.gotoScene("menu_screen","slideLeft",800)
+		composer.gotoScene("Legal_Rights_page","slideLeft",800)
 		
 		return true
 	end
