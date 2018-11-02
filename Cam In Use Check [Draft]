@@ -1,0 +1,41 @@
+import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
+import android.hardware.Camera;
+import android.content.Intent;
+
+
+
+public class MainActivity extends AppCompatActivity {
+
+    // Check how many cameras exists
+
+    public int checkCam() {
+        int numCameras = Camera.getNumberOfCameras();
+        if (numCameras < 0)
+            System.out.print("No cameras detected");
+        return numCameras;
+    }
+
+    // Check if the camera is in use
+
+    public boolean camInUse() {
+        Camera cam = null;
+        try {
+            cam = Camera.open();
+        } catch (RuntimeException e) {
+        System.out.print("Camera is in use");
+            return true;
+        } finally {
+            if (cam != null) cam.release();
+        }
+        return false;
+    }
+
+    // Link to App Permissions
+
+
+    Intent app_details = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+
+
+
+}
