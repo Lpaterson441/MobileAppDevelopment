@@ -1,0 +1,38 @@
+-- ----------------------------------------------------
+-- Monitoring App - Notifications
+-- ----------------------------------------------------
+
+-- Must add the notifications plugin in config.lua 
+
+-- plugins =
+	-- {
+		-- ["plugin.notifications.v2"] =
+		-- {
+		-- publisherId = "com.coronalabs"
+		-- },
+
+	-- },
+	
+local notifications = require( "plugin.notifications.v2" )
+
+local options = {
+ alert = "Alert! Your camera has been accessed!",
+ badge = 1,
+ sound = "alarm.caf"
+}
+
+local options2 = {
+ alert = "Alert! Your mic has been accessed!",
+ badge = 1,
+ sound = "alarm.caf"
+}
+
+-- Code to test notifications based on a timer
+local notification1 = notifications.scheduleNotification( 60, options )
+
+local function onNotification( event )
+	local notification2 = notifications.scheduleNotification( 60, options2)
+end
+
+-- notification listener
+Runtime:addEventListener("notification", onNotification)
